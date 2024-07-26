@@ -1,4 +1,8 @@
-.input-area {
+.input-container label {
+  padding: 3px 15px;
+  display: block;
+}
+.input-container .input-area {
   position: relative;
   width: 100%;
   height: 50px;
@@ -7,7 +11,7 @@
   background-color: rgba(0, 0, 0, 0.1647058824);
   border: 2px solid #e2a258;
 }
-.input-area input {
+.input-container .input-area input {
   width: 100%;
   height: 100%;
   padding: 0 50px 0 20px;
@@ -17,24 +21,44 @@
   color: #e2a258;
   font-weight: 600;
 }
-.input-area input.incorrect {
+.input-container .input-area input.incorrect {
   background-color: rgb(253, 119, 126);
   color: #f5f5f5;
 }
-.input-area .icon {
+.input-container .input-area .icon {
   color: #e2a258;
   position: absolute;
   right: 20px;
   top: 50%;
   transform: translate(0, -50%);
 }
-.input-area .required {
+.input-container .input-area .required {
   color: rgb(252, 99, 107);
   position: absolute;
   top: 3px;
   left: 6px;
   font-weight: 700;
   font-size: 1.1em;
+}
+.input-container .selected-item-container {
+  margin-top: 3px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+}
+.input-container .selected-item-container .item {
+  background-color: rgba(0, 0, 0, 0.1647058824);
+  padding: 3px 5px;
+  display: flex;
+  gap: 4px;
+}
+.input-container .selected-item-container .item .remove-button {
+  color: rgb(252, 99, 107);
+}
+.input-container .selected-item-container .item .remove-button:hover {
+  cursor: pointer;
+  color: rgb(199, 52, 59);
 }
 
 .input-area-select {
@@ -47,7 +71,7 @@
   width: 100%;
   height: 250px;
   overflow: hidden;
-  background-color: #1b1b1b;
+  background-color: #1a3141;
   border-top: 2px solid #e2a258;
   border-left: 2px solid #e2a258;
   border-right: 2px solid #e2a258;
@@ -114,4 +138,71 @@
   right: 20px;
   top: 50%;
   transform: translate(0, -50%);
+}
+
+.double-input-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.switch-area {
+  display: flex;
+  align-items: center;
+}
+.switch-area .switch {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 50px;
+  margin: 0 10px;
+  border-radius: 34px;
+  overflow: hidden;
+}
+.switch-area .switch .slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  background-color: #83ff4a;
+  transition: 0.4s;
+}
+.switch-area .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 40px;
+  width: 40px;
+  left: 5px;
+  bottom: 5px;
+  background-color: #60d32b;
+  transition: 0.4s;
+  border-radius: 50px;
+}
+.switch-area .switch input {
+  display: none;
+}
+.switch-area .switch input:checked + .slider {
+  background-color: rgb(252, 99, 107);
+}
+.switch-area .switch input:checked + .slider:before {
+  transform: translateX(50px);
+  background-color: rgb(199, 52, 59);
+}
+
+.action-button {
+  background-color: #e2a258;
+  font-weight: 600;
+  font-size: 1.4em;
+  padding: 15px 30px;
+  border-radius: 50px;
+  width: 80%;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  background-color: #ce8e45;
 }/*# sourceMappingURL=formElement.css.map */

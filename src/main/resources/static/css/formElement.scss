@@ -1,49 +1,82 @@
 @import "base";
 
-.input-area {
-    position: relative;
+.input-container{
+    label{
+        padding: 3px 15px;
+        display: block;
+    }
 
-    width: 100%;
-    height: 50px;
-    border-radius: 10px;
-    overflow: hidden;
-
-    background-color: $color-dark;
-    border: 2px solid $color-theme;
-
-    input {
+    .input-area {
+        position: relative;
+    
         width: 100%;
-        height: 100%;
-        padding: 0 50px 0 20px;
-
-        border: none;
-        outline: none;
-        background-color: transparent;
-        color: $color-theme;
-        font-weight: 600;
+        height: 50px;
+        border-radius: 10px;
+        overflow: hidden;
+    
+        background-color: $color-dark;
+        border: 2px solid $color-theme;
+    
+        input {
+            width: 100%;
+            height: 100%;
+            padding: 0 50px 0 20px;
+    
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: $color-theme;
+            font-weight: 600;
+        }
+    
+        input.incorrect {
+            background-color: $color-incorrect;
+            color: $color-white;
+        }
+    
+        .icon {
+            color: $color-theme;
+    
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+    
+        .required{
+            color: $color-red;
+            position: absolute;
+            top: 3px;
+            left: 6px;
+            font-weight: 700;
+            font-size: 1.1em;
+        }
     }
 
-    input.incorrect {
-        background-color: $color-incorrect;
-        color: $color-white;
-    }
+    .selected-item-container{
+        margin-top: 3px;
 
-    .icon {
-        color: $color-theme;
+        display: flex;
+        gap: 10px;
 
-        position: absolute;
-        right: 20px;
-        top: 50%;
-        transform: translate(0, -50%);
-    }
+        overflow-x: auto;
+        padding-bottom: 5px;
 
-    .required{
-        color: $color-red;
-        position: absolute;
-        top: 3px;
-        left: 6px;
-        font-weight: 700;
-        font-size: 1.1em;
+        .item{
+            background-color: $color-dark;
+            padding: 3px 5px;
+
+            display: flex;
+            gap: 4px;
+
+            .remove-button{
+                color: $color-red;
+            }
+            .remove-button:hover{
+                cursor: pointer;
+                color: $color-red-dark;
+            }
+        }
     }
 }
 
@@ -59,7 +92,7 @@
         height: 250px;
         overflow: hidden;
 
-        background-color: #1b1b1b;
+        background-color: #1a3141;
 
         border-top: 2px solid $color-theme;
         border-left: 2px solid $color-theme;
@@ -145,4 +178,79 @@
             transform: translate(0, -50%);
         }
     }
+}
+
+.double-input-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.switch-area{
+    display: flex;
+    align-items: center;
+
+    .switch{
+        position: relative;
+        display: inline-block;
+        width: 100px;
+        height: 50px;
+        margin: 0 10px;
+    
+        border-radius: 34px;
+        overflow: hidden;
+    
+        .slider{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            cursor: pointer;
+            background-color: $color-green;
+            transition: 0.4s;
+        }
+    
+        .slider:before{
+            position: absolute;
+            content: "";
+            height: 40px;
+            width: 40px;
+            left: 5px;
+            bottom: 5px;
+    
+            background-color: $color-green-dark;
+            transition: 0.4s;
+            border-radius: 50px;
+        }
+    
+        input{
+            display: none;
+        }
+    
+        input:checked + .slider{
+            background-color: $color-red
+        }
+        input:checked + .slider:before{
+            transform: translateX(50px);
+    
+            background-color: $color-red-dark;
+        }
+    }
+}
+
+.action-button{
+    background-color: $color-theme;
+    font-weight: 600;
+    font-size: 1.4em;
+    padding: 15px 30px;
+    border-radius: 50px;
+    width: 80%;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.action-button:hover{
+    cursor: pointer;
+    background-color: $color-theme-dark;
 }
