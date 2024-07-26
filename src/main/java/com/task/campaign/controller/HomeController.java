@@ -14,4 +14,9 @@ public class HomeController {
     public String getHomePage(){
         return "home";
     }
+
+    @RequestMapping("/new-campaign")
+    public String getNewCampaignName(){
+        return "subPage/createNewCampaign";
+    }
 }

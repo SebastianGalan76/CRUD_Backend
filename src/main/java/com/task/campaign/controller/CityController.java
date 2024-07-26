@@ -18,6 +18,11 @@ import java.util.List;
 public class CityController {
     final CityService cityService;
 
+    @GetMapping
+    public List<City> getAllCities(){
+        return cityService.getAll();
+    }
+
     @GetMapping("/search")
     public List<City> findByPrefix(@RequestParam String prefix){
         return cityService.findByPrefix(prefix);

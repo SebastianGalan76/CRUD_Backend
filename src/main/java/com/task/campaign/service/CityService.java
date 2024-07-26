@@ -19,4 +19,8 @@ public class CityService {
     public List<City> findByPrefix(String prefix){
         return cityRepository.findByNameStartingWithIgnoreCase(prefix.toLowerCase());
     }
+
+    public List<City> getAll() {
+        return cityRepository.findAll();
+    }
 }
