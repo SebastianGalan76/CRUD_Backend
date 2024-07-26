@@ -20,4 +20,8 @@ public class KeywordService {
     public List<Keyword> findByPrefix(String prefix){
         return keywordRepository.findByNameStartingWithIgnoreCase(prefix.toLowerCase());
     }
+
+    public List<Keyword> getAll() {
+        return keywordRepository.findAll();
+    }
 }

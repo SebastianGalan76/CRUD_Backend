@@ -20,6 +20,11 @@ import java.util.List;
 public class KeywordController {
     final KeywordService keywordService;
 
+    @GetMapping
+    public List<Keyword> getAllKeywords(){
+        return keywordService.getAll();
+    }
+
     @GetMapping("/search")
     public List<Keyword> findByPrefix(@RequestParam String prefix){
         return keywordService.findByPrefix(prefix);

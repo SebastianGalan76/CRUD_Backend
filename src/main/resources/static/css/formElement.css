@@ -21,6 +21,14 @@
   color: #e2a258;
   font-weight: 600;
 }
+.input-container .input-area .typeahead {
+  position: absolute;
+  top: 14.2px;
+  font-size: 0.89em;
+  padding: 0 50px 0 20px;
+  color: #c5c5c5;
+  z-index: -1;
+}
 .input-container .input-area input.incorrect {
   background-color: rgb(253, 119, 126);
   color: #f5f5f5;
@@ -50,6 +58,7 @@
 .input-container .selected-item-container .item {
   background-color: rgba(0, 0, 0, 0.1647058824);
   padding: 3px 5px;
+  white-space: nowrap;
   display: flex;
   gap: 4px;
 }

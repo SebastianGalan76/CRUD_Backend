@@ -25,7 +25,8 @@
     <!-- Font Awesome -->
     <script src="https://kit.fontawesome.com/2282473dfd.js" crossorigin="anonymous"></script>
 
-    <script src="/js/cityManager.js" defer></script>
+    <script type="module" src="/js/cityManager.js" defer></script>
+    <script type="module" src="/js/keywordManager.js" defer></script>
 </head>
 
 <body>
@@ -41,60 +42,21 @@
                 <div class="input-container">
                     <label for="input-campaign-name">Campaign name</label>
                     <div class="input-area">
-                        <input id="input-campaign-name" type="text">
+                        <input id="input-campaign-name" type="text" maxlength="255">
                         <span class="required">*</span>
                         <span class="icon"><i class="fa-solid fa-envelope"></i></span>
                     </div>
                 </div>
                 <br>
                 <div class="input-container">
-                    <label for="input-keywords">Keywords</label>
+                    <label for="input-keyword">Keywords</label>
                     <div class="input-area">
-                        <input id="input-keywords" type="text">
+                        <input id="input-keyword" type="text" list="keywords-typeahead-list" autocomplete="off" maxlength="30">
                         <span class="required">*</span>
                         <span class="icon"><i class="fa-solid fa-envelope"></i></span>
                     </div>
-                    <div class="selected-item-container scrollable scrollable-horizontal">
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
-                        <div class="item">
-                            adwadawdawd
-                            <i class="remove-button fa-solid fa-trash"></i>
-                        </div>
+                    <datalist id="keywords-typeahead-list"></datalist>
+                    <div id="selected-keyword-container" class="selected-item-container scrollable scrollable-horizontal">
                     </div>
                 </div>
                 <br>
