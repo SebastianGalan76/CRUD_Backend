@@ -6,38 +6,58 @@ import com.task.campaign.service.CampaignService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Data
-@RestController
-@RequestMapping("/api/campaign")
+@Controller
 @RequiredArgsConstructor
 public class CampaignController {
     final CampaignService campaignService;
 
-    @PostMapping
+    @RequestMapping("/create")
+    public String getNewCampaignPage(){
+        return "subPage/createNewCampaign";
+    }
+
+    @RequestMapping("/edit")
+    public String getEditCampaignPage(){
+        return "subPage/createNewCampaign";
+    }
+
+    @RequestMapping("/list")
+    public String getCampaignList(){
+        return "subPage/campaignList";
+    }
+
+    @PostMapping("/api/campaign")
+    @ResponseBody
     public ResponseEntity<String> createCampaign(@RequestBody CampaignDto campaign) {
         return campaignService.createCampaign(campaign);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/api/campaign/{id}")
+    @ResponseBody
     public ResponseEntity<String> editCampaign(@PathVariable Long id, @RequestBody CampaignDto campaign) {
         return campaignService.editCampaign(id, campaign);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/api/campaign/{id}")
+    @ResponseBody
     public void deleteCampaign(@PathVariable Long id) {
         campaignService.deleteById(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/api/campaign/{id}")
+    @ResponseBody
     public Campaign getCampaignById(@PathVariable Long id) {
         return campaignService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping("/api/campaign")
+    @ResponseBody
     public List<Campaign> getAllCampaigns() {
         return campaignService.findAll();
     }

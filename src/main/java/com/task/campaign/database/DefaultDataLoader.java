@@ -2,22 +2,29 @@ package com.task.campaign.database;
 
 import com.task.campaign.database.model.City;
 import com.task.campaign.database.model.Keyword;
+import com.task.campaign.database.model.Seller;
 import com.task.campaign.database.repository.CityRepository;
 import com.task.campaign.database.repository.KeywordRepository;
+import com.task.campaign.database.repository.SellerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.math.BigDecimal;
 
 @AllArgsConstructor
 @Component
 public class DefaultDataLoader implements CommandLineRunner {
     final CityRepository cityRepository;
     final KeywordRepository keywordRepository;
+    final SellerRepository sellerRepository;
 
     @Override
     public void run(String... args) throws Exception {
         loadCities();
         loadKeywords();
+
+        sellerRepository.save(new Seller(1L, "Jan", "Kowalski", new BigDecimal("1000000")));
     }
 
     private void loadKeywords() {

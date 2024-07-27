@@ -3,6 +3,7 @@ package com.task.campaign.service;
 import com.task.campaign.data.CampaignDto;
 import com.task.campaign.database.model.Campaign;
 import com.task.campaign.database.model.City;
+import com.task.campaign.database.model.Seller;
 import com.task.campaign.database.repository.CampaignRepository;
 import jakarta.annotation.Nullable;
 import lombok.Data;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -22,12 +24,20 @@ public class CampaignService {
 
     final CampaignRepository campaignRepository;
     final CityService cityService;
+    final SellerService sellerService;
 
+    @Transactional
     public ResponseEntity<String> createCampaign(CampaignDto campaignDto) {
         ResponseEntity<String> verificationResult = verifyCampaignData(campaignDto);
         if (verificationResult.getStatusCode() != HttpStatus.OK) {
             return verificationResult;
         }
+
+        Seller seller = sellerService.getLoggedInSeller();
+        if(seller.getBalance().compareTo(campaignDto.getCampaignFund()) < 0){
+            return ResponseEntity.badRequest().body("You don't have enough money to create this campaign");
+        }
+
         Campaign campaign = new Campaign();
 
         ResponseEntity<String> conversionResult = convertDtoToModel(campaign, campaignDto);
@@ -35,9 +45,14 @@ public class CampaignService {
             return conversionResult;
         }
 
+        seller.setBalance(seller.getBalance().subtract(campaignDto.getCampaignFund()));
+
+        sellerService.save(seller);
         campaignRepository.save(campaign);
         return ResponseEntity.ok().body("You have created new campaign successfully");
     }
+
+    @Transactional
     public ResponseEntity<String> editCampaign(Long id, CampaignDto campaignDto) {
         ResponseEntity<String> verificationResult = verifyCampaignData(campaignDto);
         if (verificationResult.getStatusCode() != HttpStatus.OK) {
