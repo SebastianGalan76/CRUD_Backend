@@ -63,11 +63,11 @@ function verifyInputs(){
     var bidAmount = parseFloat(bidAmountInput.value);
     var fundAmount = parseFloat(fundInput.value);
 
-    if(bidAmount < 0.02){
+    if(isNaN(bidAmount) || bidAmount < 0.02){
         errorMessage.innerHTML = "The campaign bid amount is too small";
         return false;
     }
-    if(fundAmount < bidAmount){
+    if(isNaN(fundAmount) || fundAmount < bidAmount){
         errorMessage.innerHTML = "The campaign fund cannot be less than the bid amount";
         return false;
     }
@@ -77,6 +77,10 @@ function verifyInputs(){
     }
     if(cityNameInput.value.trim().length == 0){
         errorMessage.innerHTML = "City name cannot be empty";
+        return false;
+    }
+    if(getKeywords().length == 0){
+        errorMessage.innerHTML = "You need to enter some keywords. After typing press Enter to add keyword to the list";
         return false;
     }
 

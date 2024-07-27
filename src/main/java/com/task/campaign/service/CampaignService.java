@@ -72,7 +72,7 @@ public class CampaignService {
         }
 
         //Increase current campaign funds
-        if(campaignDto.getCampaignFund().compareTo(new BigDecimal("0"))>0){
+        if(campaignDto.getCampaignFund() != null && campaignDto.getCampaignFund().compareTo(new BigDecimal("0"))>0){
             Seller seller = sellerService.getLoggedInSeller();
             if(seller.getBalance().compareTo(campaignDto.getCampaignFund()) < 0){
                 return ResponseEntity.badRequest().body("You don't have enough money to increase this campaign funds");
@@ -81,6 +81,9 @@ public class CampaignService {
             seller.setBalance(seller.getBalance().subtract(campaignDto.getCampaignFund()));
             savedCampaign.setCampaignFund(currentFunds.add(campaignDto.getCampaignFund()));
             sellerService.save(seller);
+        }
+        else{
+            savedCampaign.setCampaignFund(currentFunds);
         }
 
         campaignRepository.save(savedCampaign);
@@ -98,11 +101,11 @@ public class CampaignService {
     }
 
     private ResponseEntity<String> verifyCampaignData(CampaignDto campaignDto) {
-        if (campaignDto.getBidAmount().compareTo(MIN_BID_AMOUNT) < 0) {
+        if (campaignDto.getCampaignFund() != null && campaignDto.getBidAmount().compareTo(MIN_BID_AMOUNT) < 0) {
             return ResponseEntity.badRequest().body("The bid amount should be greater than or equal to " + MIN_BID_AMOUNT);
         }
 
-        if (campaignDto.getCampaignFund().compareTo(campaignDto.getBidAmount()) < 0) {
+        if (campaignDto.getCampaignFund() != null && campaignDto.getCampaignFund().compareTo(campaignDto.getBidAmount()) < 0) {
             return ResponseEntity.badRequest().body("The campaign fund cannot be less than the bid amount");
         }
 

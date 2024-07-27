@@ -40,7 +40,7 @@ async function loadCampaign() {
 
         document.getElementById('current-funds-value').innerHTML = campaignJson.campaignFund;
     } catch (error) {
-        errorMessage.innerHTML = error;
+        errorMessage.innerHTML = "The campaign with given ID doesn't exist";
     }
 
 }
@@ -82,39 +82,31 @@ async function editCampaign() {
     } catch (error) {
         errorMessage.innerHTML = error;
     }
-
-    clearForm();
 }
 
 function verifyInputs() {
-    if (nameInput.value.trim().length <= 3) {
+    if(nameInput.value.trim().length <= 3){
         errorMessage.innerHTML = "The campaign name is too short";
         return false;
     }
     var bidAmount = parseFloat(bidAmountInput.value);
 
-    if (bidAmount < 0.02) {
+    if(isNaN(bidAmount) || bidAmount < 0.02){
         errorMessage.innerHTML = "The campaign bid amount is too small";
         return false;
     }
-    if (parseFloat(cityRadiusInput.value) < 0) {
+    if(parseFloat(cityRadiusInput.value) < 0){
         errorMessage.innerHTML = "The radius cannot be less than 0";
         return false;
     }
-    if (cityNameInput.value.trim().length == 0) {
+    if(cityNameInput.value.trim().length == 0){
         errorMessage.innerHTML = "City name cannot be empty";
+        return false;
+    }
+    if(getKeywords().length == 0){
+        errorMessage.innerHTML = "You need to enter some keywords. After typing press Enter to add keyword to the list";
         return false;
     }
 
     return true;
-}
-
-function clearForm() {
-    nameInput.value = null;
-    bidAmountInput.value = null;
-    fundInput.value = null;
-    cityNameInput.value = null;
-    cityRadiusInput.value = "0";
-
-    removeKeywords();
 }
