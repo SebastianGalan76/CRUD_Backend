@@ -31,6 +31,10 @@ searchInput.addEventListener('keydown', function(event) {
 
 loadKeywords();
 
+export function getKeywords(){
+    return selectedKeywords;
+}
+
 async function loadKeywords() {
     const response = await fetch('/api/keyword', {
         method: 'GET',

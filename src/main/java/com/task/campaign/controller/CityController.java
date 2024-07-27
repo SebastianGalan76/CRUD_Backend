@@ -22,9 +22,4 @@ public class CityController {
     public List<City> getAllCities(){
         return cityService.getAll();
     }
-
-    @GetMapping("/search")
-    public List<City> findByPrefix(@RequestParam String prefix){
-        return cityService.findByPrefix(prefix);
-    }
 }

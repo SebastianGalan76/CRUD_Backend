@@ -172,7 +172,7 @@
   right: 0;
   bottom: 0;
   cursor: pointer;
-  background-color: #83ff4a;
+  background-color: rgb(252, 99, 107);
   transition: 0.4s;
 }
 .switch-area .switch .slider:before {
@@ -182,7 +182,7 @@
   width: 40px;
   left: 5px;
   bottom: 5px;
-  background-color: #60d32b;
+  background-color: rgb(199, 52, 59);
   transition: 0.4s;
   border-radius: 50px;
 }
@@ -190,11 +190,11 @@
   display: none;
 }
 .switch-area .switch input:checked + .slider {
-  background-color: rgb(252, 99, 107);
+  background-color: #83ff4a;
 }
 .switch-area .switch input:checked + .slider:before {
   transform: translateX(50px);
-  background-color: rgb(199, 52, 59);
+  background-color: #60d32b;
 }
 
 .action-button {

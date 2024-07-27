@@ -24,9 +24,6 @@ document.addEventListener('click', function (event) {
         searchInput.blur();
         searchInput.classList.remove("focused");
     }
-    else {
-        searchInput.focus();
-    }
 });
 
 loadCities();
@@ -70,4 +67,7 @@ function populateList(cityArray) {
 
 function selectCity(city) {
     searchInput.value = city.name;
+
+    listPanel.style.display = 'none';
+    searchInput.classList.remove("focused");
 }

@@ -214,7 +214,7 @@
             right: 0;
             bottom: 0;
             cursor: pointer;
-            background-color: $color-green;
+            background-color: $color-red;
             transition: 0.4s;
         }
     
@@ -226,7 +226,7 @@
             left: 5px;
             bottom: 5px;
     
-            background-color: $color-green-dark;
+            background-color: $color-red-dark;
             transition: 0.4s;
             border-radius: 50px;
         }
@@ -236,12 +236,12 @@
         }
     
         input:checked + .slider{
-            background-color: $color-red
+            background-color: $color-green;
         }
         input:checked + .slider:before{
             transform: translateX(50px);
     
-            background-color: $color-red-dark;
+            background-color: $color-green-dark;
         }
     }
 }

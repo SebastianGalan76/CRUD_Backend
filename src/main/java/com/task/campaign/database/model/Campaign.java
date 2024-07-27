@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @Entity
 @Data
@@ -24,14 +23,8 @@ public class Campaign {
 
     boolean status;
 
-    @ManyToMany
-    @JoinTable(
-            name = "campaign_keywords",
-            joinColumns = @JoinColumn(name = "campaign_id"),
-            inverseJoinColumns = @JoinColumn(name = "keyword_id")
-
-    )
-    List<Keyword> keywordList;
+    @Column(length = 2000)
+    String keywords;
 
     @ManyToOne
     @JoinColumn(name = "city_id")

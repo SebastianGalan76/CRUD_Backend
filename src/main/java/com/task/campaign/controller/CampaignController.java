@@ -1,5 +1,6 @@
 package com.task.campaign.controller;
 
+import com.task.campaign.data.CampaignDto;
 import com.task.campaign.database.model.Campaign;
 import com.task.campaign.service.CampaignService;
 import lombok.Data;
@@ -17,12 +18,12 @@ public class CampaignController {
     final CampaignService campaignService;
 
     @PostMapping
-    public ResponseEntity<String> createCampaign(@RequestBody Campaign campaign) {
+    public ResponseEntity<String> createCampaign(@RequestBody CampaignDto campaign) {
         return campaignService.createCampaign(campaign);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> editCampaign(@PathVariable Long id, @RequestBody Campaign campaign) {
+    public ResponseEntity<String> editCampaign(@PathVariable Long id, @RequestBody CampaignDto campaign) {
         return campaignService.editCampaign(id, campaign);
     }
 

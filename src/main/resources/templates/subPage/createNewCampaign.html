@@ -27,6 +27,7 @@
 
     <script type="module" src="/js/cityManager.js" defer></script>
     <script type="module" src="/js/keywordManager.js" defer></script>
+    <script type="module" src="/js/createNewCampaign.js" defer></script>
 </head>
 
 <body>
@@ -100,9 +101,9 @@
                         </div>
                     </div>
                     <div class="input-container">
-                        <label for="input-campaign-name">Radius</label>
+                        <label for="input-city-radius">Radius</label>
                         <div class="input-area">
-                            <input id="input-campaign-name" type="number">
+                            <input id="input-city-radius" type="number" placeholder="0">
                             <span class="required">*</span>
                             <span class="icon"><i class="fa-solid fa-envelope"></i></span>
                         </div>
@@ -111,7 +112,7 @@
                 <br>
                 <div class="switch-area">
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="checkbox-status">
                         <span class="slider"></span>
                     </label>
                     <span class="label">Campaign is ON</span>
@@ -119,7 +120,7 @@
                 <br>
                 <div class="error" id="error-message"></div>
 
-                <div class="action-button center">Submit</div>
+                <div id="submit-button" class="action-button center">Submit</div>
             </div>
         </div>
     </div>
