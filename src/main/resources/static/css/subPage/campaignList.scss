@@ -1,0 +1,67 @@
+@import "../base";
+
+body{
+    display: flex;
+}
+
+#page-wrapper{
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .container{
+        width: 90%;
+        background-color: $color-dark;
+        padding: 50px 20px;
+        border-radius: 20px;
+
+        .title{
+            font-size: 2em;
+            text-align: center;
+            padding: 10px 0 30px 0;
+        }
+
+        .list-container{
+            table{
+                width: 100%;
+                border-collapse: collapse;
+
+                thead th{
+                    background-color: $color-dark;
+                    padding: 3px 10px;
+                }
+
+                th, td{
+                    border: 2px solid #00000057;
+                    padding: 3px 10px;
+                }
+
+                .location {
+                    text-align: center;
+                }
+
+                .action-buttons{
+                    min-width: 60px;
+
+                    text-align: center;
+                    vertical-align: middle;
+
+                    i {
+                        margin: 0 2px;
+                    }
+
+                    .fa-trash{
+                        color: $color-red;
+                    }
+
+                    i:hover{
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

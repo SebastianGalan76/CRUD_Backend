@@ -59,15 +59,18 @@ function verifyInputs(){
         errorMessage.innerHTML = "The campaign name is too short";
         return false;
     }
-    if(bidAmountInput.value < 0.02){
+    var bidAmount = parseFloat(bidAmountInput.value);
+    var fundAmount = parseFloat(fundInput.value);
+
+    if(bidAmount < 0.02){
         errorMessage.innerHTML = "The campaign bid amount is too small";
         return false;
     }
-    if(fundInput.value < bidAmountInput.value){
+    if(fundAmount < bidAmount){
         errorMessage.innerHTML = "The campaign fund cannot be less than the bid amount";
         return false;
     }
-    if(cityRadiusInput.value < 0){
+    if(parseFloat(cityRadiusInput.value) < 0){
         errorMessage.innerHTML = "The radius cannot be less than 0";
         return false;
     }

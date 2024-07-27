@@ -85,14 +85,17 @@ public class CampaignService {
     }
 
     private ResponseEntity<String> convertDtoToModel(Campaign campaign, CampaignDto campaignDto){
-        campaign.setName(campaign.getName());
+        campaign.setName(campaignDto.getName());
         campaign.setBidAmount(campaignDto.getBidAmount());
         campaign.setCampaignFund(campaignDto.getCampaignFund());
         campaign.setStatus(campaignDto.isStatus());
 
         StringBuilder sb = new StringBuilder();
         for(String keyword:campaignDto.getKeywords()){
-            sb.append(keyword).append(";");
+            sb.append(keyword).append(", ");
+        }
+        if (!sb.isEmpty()) {
+            sb.setLength(sb.length() - 2);
         }
         campaign.setKeywords(sb.toString());
 
@@ -101,7 +104,7 @@ public class CampaignService {
             return ResponseEntity.badRequest().body("There is no city with the given name in our system. Select a city from the list");
         }
         campaign.setCity(city);
-        campaign.setRadius(campaign.getRadius());
+        campaign.setRadius(campaignDto.getRadius());
         return ResponseEntity.ok().build();
     }
 }
