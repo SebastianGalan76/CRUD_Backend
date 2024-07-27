@@ -12,7 +12,7 @@ const statusCheckbox = document.getElementById('checkbox-status');
 
 const errorMessage = document.getElementById('error-message');
 
-import { getKeywords } from "./keywordManager.js";
+import { getKeywords, removeKeywords } from "./keywordManager.js";
 
 async function createCampaign() {
     if(!verifyInputs()){
@@ -41,7 +41,6 @@ async function createCampaign() {
             body: JSON.stringify(campaignDto)
         });
         
-    
         if (!response.ok) {
             const errorResponse = await response.text();
             errorMessage.innerHTML = errorResponse;
@@ -52,6 +51,8 @@ async function createCampaign() {
     } catch (error) {
         errorMessage.innerHTML = error;
     }
+
+    clearForm();
 }
 
 function verifyInputs(){
@@ -80,4 +81,14 @@ function verifyInputs(){
     }
 
     return true;
+}
+
+function clearForm(){
+    nameInput.value = null;
+    bidAmountInput.value = null;
+    fundInput.value = null;
+    cityNameInput.value = null;
+    cityRadiusInput.value = "0";
+
+    removeKeywords();
 }

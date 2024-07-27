@@ -35,6 +35,11 @@ export function getKeywords(){
     return selectedKeywords;
 }
 
+export function removeKeywords(){
+    selectedKeywords = [];
+    keywordContainer.innerHTML = null;
+}
+
 async function loadKeywords() {
     const response = await fetch('/api/keyword', {
         method: 'GET',
@@ -85,6 +90,3 @@ function removeKeyword(keyword) {
     selectedKeywords = selectedKeywords.filter(item => item !== keyword);
 }
 
-function selectCity(city) {
-    searchInput.value = city.name;
-}

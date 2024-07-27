@@ -34,18 +34,20 @@ function populateList(listArray) {
         var cell4 = newRow.insertCell(3);
         var cell5 = newRow.insertCell(4);
         var cell6 = newRow.insertCell(5);
+        var cell7 = newRow.insertCell(6);
 
         cell1.innerHTML = campaignJson.name;
         cell2.innerHTML = campaignJson.bidAmount;
         cell3.innerHTML = campaignJson.campaignFund;
         cell4.innerHTML = campaignJson.keywords;
         cell5.className = "location";
-        cell5.innerHTML = campaignJson.city.name + "(+"+campaignJson.radius+" km)";
-        cell6.className = "action-buttons";
-        cell6.innerHTML = '<i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash"></i>';
+        cell5.innerHTML = campaignJson.city.name + " (+"+campaignJson.radius+" km)";
+        cell6.innerHTML = campaignJson.status;
+        cell7.className = "action-buttons";
+        cell7.innerHTML = '<i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash"></i>';
 
-        var editIcon = cell6.querySelector('.fa-pen-to-square');
-        var deleteIcon = cell6.querySelector('.fa-trash');
+        var editIcon = cell7.querySelector('.fa-pen-to-square');
+        var deleteIcon = cell7.querySelector('.fa-trash');
 
         editIcon.onclick = function() {
             editCampaign(campaignJson);
