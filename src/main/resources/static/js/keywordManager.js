@@ -31,6 +31,14 @@ searchInput.addEventListener('keydown', function(event) {
 
 loadKeywords();
 
+export function loadSelectedKeywords(keywords){
+    var keywordArray = keywords.split(',');
+
+    keywordArray.forEach(keyword => {
+        createKeywordView(keyword);
+    })
+}
+
 export function getKeywords(){
     return selectedKeywords;
 }

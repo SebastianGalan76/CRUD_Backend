@@ -64,13 +64,27 @@ public class CampaignService {
             return ResponseEntity.badRequest().body("There is no campaign with the specified ID");
         }
 
+        BigDecimal currentFunds = savedCampaign.getCampaignFund();
+
         ResponseEntity<String> conversionResult = convertDtoToModel(savedCampaign, campaignDto);
         if(conversionResult.getStatusCode() != HttpStatus.OK){
             return conversionResult;
         }
 
+        //Increase current campaign funds
+        if(campaignDto.getCampaignFund().compareTo(new BigDecimal("0"))>0){
+            Seller seller = sellerService.getLoggedInSeller();
+            if(seller.getBalance().compareTo(campaignDto.getCampaignFund()) < 0){
+                return ResponseEntity.badRequest().body("You don't have enough money to increase this campaign funds");
+            }
+
+            seller.setBalance(seller.getBalance().subtract(campaignDto.getCampaignFund()));
+            savedCampaign.setCampaignFund(currentFunds.add(campaignDto.getCampaignFund()));
+            sellerService.save(seller);
+        }
+
         campaignRepository.save(savedCampaign);
-        return ResponseEntity.ok().body("You have updated new campaign successfully");
+        return ResponseEntity.ok().body("You have updated campaign successfully");
     }
 
     public List<Campaign> findAll() {

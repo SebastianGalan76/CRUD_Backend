@@ -22,9 +22,9 @@ public class CampaignController {
         return "subPage/createNewCampaign";
     }
 
-    @RequestMapping("/edit")
+    @RequestMapping("/edit/{id}")
     public String getEditCampaignPage(){
-        return "subPage/createNewCampaign";
+        return "subPage/editCampaign";
     }
 
     @RequestMapping("/list")

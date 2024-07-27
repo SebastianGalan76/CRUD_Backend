@@ -60,7 +60,7 @@ function populateList(listArray) {
 }
 
 function editCampaign(campaignJson){
-    console.log(campaignJson);
+    window.location.href = '/edit/'+campaignJson.id;
 }
 
 async function deleteCampaign(campaignJson, row){
