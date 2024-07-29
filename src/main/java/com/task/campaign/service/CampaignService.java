@@ -34,7 +34,7 @@ public class CampaignService {
         }
         Seller seller = sellerService.getLoggedInSeller();
         if(seller.getBalance().compareTo(campaignDto.getCampaignFund()) < 0){
-            return ResponseEntity.badRequest().body("You don't have enough money to create this campaign");
+            return ResponseEntity.badRequest().body("You don't have enough money to create this campaign.");
         }
 
         Campaign campaign = new Campaign();
@@ -46,14 +46,17 @@ public class CampaignService {
         seller.setBalance(seller.getBalance().subtract(campaignDto.getCampaignFund()));
         sellerService.save(seller);
         campaignRepository.save(campaign);
-        return ResponseEntity.ok().body("You have created new campaign successfully");
+        return ResponseEntity.ok().body("You have created new campaign successfully.");
     }
 
     @Transactional
     public ResponseEntity<String> editCampaign(Long id, CampaignDto campaignDto) {
         Campaign savedCampaign = findById(id);
         if (savedCampaign == null) {
-            return ResponseEntity.badRequest().body("There is no campaign with the specified ID");
+            return ResponseEntity.badRequest().body("There is no campaign with the specified ID.");
+        }
+        if (campaignDto.getCampaignFund() != null && campaignDto.getCampaignFund().compareTo(BigDecimal.ZERO) < 0) {
+            return ResponseEntity.badRequest().body("You cannot increase the fund by a negative value.");
         }
 
         BigDecimal currentFunds = savedCampaign.getCampaignFund();
@@ -61,7 +64,7 @@ public class CampaignService {
         if(campaignDto.getCampaignFund() != null && campaignDto.getCampaignFund().compareTo(new BigDecimal("0"))>0){
             Seller seller = sellerService.getLoggedInSeller();
             if(seller.getBalance().compareTo(campaignDto.getCampaignFund()) < 0){
-                return ResponseEntity.badRequest().body("You don't have enough money to increase this campaign funds");
+                return ResponseEntity.badRequest().body("You don't have enough money to increase this campaign funds.");
             }
 
             seller.setBalance(seller.getBalance().subtract(campaignDto.getCampaignFund()));
@@ -83,7 +86,7 @@ public class CampaignService {
         }
 
         campaignRepository.save(savedCampaign);
-        return ResponseEntity.ok().body("You have updated campaign successfully");
+        return ResponseEntity.ok().body("You have updated campaign successfully.");
     }
 
     public List<Campaign> findAll() {
@@ -98,13 +101,13 @@ public class CampaignService {
 
     private ResponseEntity<String> verifyCampaignData(CampaignDto campaignDto) {
         if (campaignDto.getCampaignFund() != null && campaignDto.getBidAmount().compareTo(MIN_BID_AMOUNT) < 0) {
-            return ResponseEntity.badRequest().body("The bid amount should be greater than or equal to " + MIN_BID_AMOUNT);
+            return ResponseEntity.badRequest().body("The bid amount should be greater than or equal to " + MIN_BID_AMOUNT +".");
         }
         if (campaignDto.getCampaignFund() != null && campaignDto.getCampaignFund().compareTo(campaignDto.getBidAmount()) < 0) {
-            return ResponseEntity.badRequest().body("The campaign fund cannot be less than the bid amount xD");
+            return ResponseEntity.badRequest().body("The campaign fund cannot be less than the bid amount.");
         }
         if (campaignDto.getRadius() < 0) {
-            return ResponseEntity.badRequest().body("The radius cannot be less than 0");
+            return ResponseEntity.badRequest().body("The radius cannot be less than 0.");
         }
 
         return ResponseEntity.ok().build();
@@ -127,7 +130,7 @@ public class CampaignService {
 
         City city = cityService.getCityByName(campaignDto.getCity());
         if(city == null){
-            return ResponseEntity.badRequest().body("There is no city with the given name in our system. Select a city from the list");
+            return ResponseEntity.badRequest().body("There is no city with the given name in our system. Select a city from the list.");
         }
         campaign.setCity(city);
         campaign.setRadius(campaignDto.getRadius());
