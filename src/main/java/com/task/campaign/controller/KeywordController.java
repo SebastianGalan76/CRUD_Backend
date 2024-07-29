@@ -1,8 +1,6 @@
 package com.task.campaign.controller;
 
-import com.task.campaign.database.model.City;
 import com.task.campaign.database.model.Keyword;
-import com.task.campaign.service.CityService;
 import com.task.campaign.service.KeywordService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

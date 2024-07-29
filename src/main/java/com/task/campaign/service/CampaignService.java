@@ -32,21 +32,18 @@ public class CampaignService {
         if (verificationResult.getStatusCode() != HttpStatus.OK) {
             return verificationResult;
         }
-
         Seller seller = sellerService.getLoggedInSeller();
         if(seller.getBalance().compareTo(campaignDto.getCampaignFund()) < 0){
             return ResponseEntity.badRequest().body("You don't have enough money to create this campaign");
         }
 
         Campaign campaign = new Campaign();
-
         ResponseEntity<String> conversionResult = convertDtoToModel(campaign, campaignDto);
         if(conversionResult.getStatusCode() != HttpStatus.OK){
             return conversionResult;
         }
 
         seller.setBalance(seller.getBalance().subtract(campaignDto.getCampaignFund()));
-
         sellerService.save(seller);
         campaignRepository.save(campaign);
         return ResponseEntity.ok().body("You have created new campaign successfully");
@@ -54,23 +51,12 @@ public class CampaignService {
 
     @Transactional
     public ResponseEntity<String> editCampaign(Long id, CampaignDto campaignDto) {
-        ResponseEntity<String> verificationResult = verifyCampaignData(campaignDto);
-        if (verificationResult.getStatusCode() != HttpStatus.OK) {
-            return verificationResult;
-        }
-
         Campaign savedCampaign = findById(id);
         if (savedCampaign == null) {
             return ResponseEntity.badRequest().body("There is no campaign with the specified ID");
         }
 
         BigDecimal currentFunds = savedCampaign.getCampaignFund();
-
-        ResponseEntity<String> conversionResult = convertDtoToModel(savedCampaign, campaignDto);
-        if(conversionResult.getStatusCode() != HttpStatus.OK){
-            return conversionResult;
-        }
-
         //Increase current campaign funds
         if(campaignDto.getCampaignFund() != null && campaignDto.getCampaignFund().compareTo(new BigDecimal("0"))>0){
             Seller seller = sellerService.getLoggedInSeller();
@@ -79,11 +65,21 @@ public class CampaignService {
             }
 
             seller.setBalance(seller.getBalance().subtract(campaignDto.getCampaignFund()));
-            savedCampaign.setCampaignFund(currentFunds.add(campaignDto.getCampaignFund()));
+            campaignDto.setCampaignFund(currentFunds.add(campaignDto.getCampaignFund()));
             sellerService.save(seller);
         }
         else{
-            savedCampaign.setCampaignFund(currentFunds);
+            campaignDto.setCampaignFund(currentFunds);
+        }
+
+        ResponseEntity<String> verificationResult = verifyCampaignData(campaignDto);
+        if (verificationResult.getStatusCode() != HttpStatus.OK) {
+            return verificationResult;
+        }
+
+        ResponseEntity<String> conversionResult = convertDtoToModel(savedCampaign, campaignDto);
+        if(conversionResult.getStatusCode() != HttpStatus.OK){
+            return conversionResult;
         }
 
         campaignRepository.save(savedCampaign);
@@ -104,11 +100,9 @@ public class CampaignService {
         if (campaignDto.getCampaignFund() != null && campaignDto.getBidAmount().compareTo(MIN_BID_AMOUNT) < 0) {
             return ResponseEntity.badRequest().body("The bid amount should be greater than or equal to " + MIN_BID_AMOUNT);
         }
-
         if (campaignDto.getCampaignFund() != null && campaignDto.getCampaignFund().compareTo(campaignDto.getBidAmount()) < 0) {
-            return ResponseEntity.badRequest().body("The campaign fund cannot be less than the bid amount");
+            return ResponseEntity.badRequest().body("The campaign fund cannot be less than the bid amount xD");
         }
-
         if (campaignDto.getRadius() < 0) {
             return ResponseEntity.badRequest().body("The radius cannot be less than 0");
         }
